@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mijn takenlijst</title>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Nieuwe taak toevoegen
+            $("#toevoegen").click(function () {
+                var taak = $("#taak").val();
+                if (taak != "") {
+                    $("#takenlijst").append(
+                        "<li>" +
+                        taak +
+                        " <button class='verwijder'>Verwijder</button>" +
+                        "</li>"
+                    );
+                    // Tekstveld leegmaken
+                    $("#taak").val("");
+                }
+            });
+            // Taak afvinken
+            $("#takenlijst").on("click", "li", function (event) {
+                // Voorkom dat klikken op de verwijderknop ook de taak afvinkt
+                if (!$(event.target).hasClass("verwijder")) {
+                    $(this).toggleClass("voltooid");
+                }
+            });
+            // Taak verwijderen
+            $("#takenlijst").on("click", ".verwijder", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+</head>
+
+
+<body>
+    <h1>Mijn takenlijst</h1>
+    <div class="invoer">
+        <input type="text" id="taak" placeholder="Typ hier een nieuwe taak">
+
+        <button id="toevoegen">
+            Toevoegen
+        </button>
+    </div>
+    <ul id="takenlijst">
+        <li>
+            Voorbeeldtaak
+            <button class="verwijder">
+                Verwijder
+            </button>
+        </li>
+    </ul>
+    <noscript>
+        Om deze website te gebruiken moet JavaScript geactiveerd zijn.
+    </noscript>
+</body>
+
+</html>
